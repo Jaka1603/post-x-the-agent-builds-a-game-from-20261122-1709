@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Neon Comet — a tiny browser game</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <header id="hud">
+    <div class="hud-left">
+      <div id="title">NEON COMET</div>
+      <div id="level">LEVEL 1</div>
+    </div>
+    <div class="hud-mid">
+      <div id="score-label">SCORE</div>
+      <div id="score">0</div>
+    </div>
+    <div class="hud-right">
+      <div id="lives-label">LIVES</div>
+      <div id="lives"></div>
+    </div>
+  </header>
+
+  <div id="arena">
+    <canvas id="game" width="900" height="1320"></canvas>
+
+    <div id="start-screen" class="overlay">
+      <div class="comet-glyph">&#9733;</div>
+      <h1>NEON<br>COMET</h1>
+      <p class="tagline">Dodge the rocks.<br>Chase the stars.</p>
+      <button id="start-btn" type="button">LAUNCH &#9654;</button>
+      <p class="hint">Steer with mouse, touch or arrow keys</p>
+      <p class="hint small">3 lives &middot; speed rises &middot; stars are +10</p>
+    </div>
+
+    <div id="over-screen" class="overlay hidden">
+      <h1>GAME OVER</h1>
+      <p class="final-line">Final score</p>
+      <p id="final-score">0</p>
+      <p id="best-line">Best: 0</p>
+      <button id="retry-btn" type="button">FLY AGAIN &#8635;</button>
+      <p class="hint">or press R</p>
+    </div>
+
+    <div id="toast" class="hidden"></div>
+  </div>
+
+  <footer id="foot">
+    <span>Built from one prompt</span>
+    <span id="fps"></span>
+  </footer>
+</div>
+<script src="game.js"></script>
+</body>
+</html>

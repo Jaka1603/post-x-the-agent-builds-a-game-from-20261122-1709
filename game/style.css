@@ -1,0 +1,280 @@
+/* Neon Comet — one coherent neon-night art direction.
+   Palette: deep space navy, make.fun magenta, comet cyan,
+   star gold. Everything glows; nothing is flat grey. */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: #05030f;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #f2ecff;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#stage {
+  width: 100%;
+  height: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 60% at 50% 0%, #2a0a4d 0%, transparent 60%),
+    radial-gradient(90% 50% at 85% 100%, #0a2a4d 0%, transparent 55%),
+    #05030f;
+}
+
+/* ---------- HUD ---------- */
+
+#hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 34px 18px;
+  gap: 12px;
+}
+
+#title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-shadow:
+    0 0 18px #c41c83,
+    0 0 46px rgba(196, 28, 131, 0.65);
+}
+
+#level {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #3ee6ff;
+  text-shadow: 0 0 14px rgba(62, 230, 255, 0.8);
+}
+
+.hud-mid {
+  text-align: center;
+}
+
+#score-label,
+#lives-label {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #9d8fd0;
+}
+
+#score {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #ffd75e;
+  text-shadow:
+    0 0 16px rgba(255, 215, 94, 0.75),
+    0 0 44px rgba(255, 215, 94, 0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+#lives {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 44px;
+  padding-top: 8px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+#lives .heart {
+  color: #ff3d81;
+  text-shadow: 0 0 16px rgba(255, 61, 129, 0.9);
+}
+
+#lives .heart.lost {
+  color: #3a3358;
+  text-shadow: none;
+}
+
+/* ---------- Arena ---------- */
+
+#arena {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 0 22px;
+  border: 2px solid rgba(120, 90, 255, 0.45);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 0 44px rgba(124, 58, 237, 0.35),
+    inset 0 0 60px rgba(20, 8, 60, 0.9);
+  background: #070418;
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* ---------- Overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+  padding: 40px;
+  background: rgba(5, 3, 18, 0.72);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.comet-glyph {
+  font-size: 120px;
+  line-height: 1;
+  color: #3ee6ff;
+  text-shadow:
+    0 0 24px rgba(62, 230, 255, 0.95),
+    0 0 80px rgba(62, 230, 255, 0.5);
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-18px) rotate(8deg); }
+}
+
+.overlay h1 {
+  font-size: 92px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  line-height: 1.02;
+  color: #ffffff;
+  text-shadow:
+    0 0 22px #c41c83,
+    0 0 70px rgba(196, 28, 131, 0.7);
+}
+
+.tagline {
+  font-size: 36px;
+  line-height: 1.35;
+  color: #cfc4f5;
+}
+
+.overlay button {
+  margin-top: 12px;
+  padding: 22px 58px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #c41c83, #7c3aed);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow:
+    0 0 30px rgba(196, 28, 131, 0.75),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.overlay button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 44px rgba(196, 28, 131, 0.95),
+    0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.hint {
+  font-size: 26px;
+  color: #9d8fd0;
+}
+
+.hint.small {
+  font-size: 22px;
+  color: #6f639e;
+}
+
+.final-line {
+  font-size: 30px;
+  letter-spacing: 4px;
+  color: #9d8fd0;
+}
+
+#final-score {
+  font-size: 120px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffd75e;
+  text-shadow:
+    0 0 20px rgba(255, 215, 94, 0.8),
+    0 0 70px rgba(255, 215, 94, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+#best-line {
+  font-size: 28px;
+  color: #cfc4f5;
+}
+
+/* ---------- Toast ---------- */
+
+#toast {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  transform: translate(-50%, -50%);
+  padding: 16px 34px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+  background: rgba(196, 28, 131, 0.9);
+  border-radius: 999px;
+  box-shadow: 0 0 34px rgba(196, 28, 131, 0.8);
+  z-index: 6;
+  pointer-events: none;
+}
+
+#toast.hidden {
+  display: none;
+}
+
+/* ---------- Footer ---------- */
+
+#foot {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 34px 24px;
+  font-size: 21px;
+  letter-spacing: 2px;
+  color: #6f639e;
+}
+
+#fps {
+  color: #4c4468;
+}
